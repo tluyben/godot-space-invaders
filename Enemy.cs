@@ -19,6 +19,8 @@ public class Enemy : Area2D
 
     public override void _Ready()
     {
+		Missile = ResourceLoader.Load("res://Missile.tscn") as PackedScene;
+			
 		screenSize = GetViewport().GetSize();
     }
 
@@ -43,7 +45,7 @@ public class Enemy : Area2D
 
     private void Fire()
     {
-        var missile = (Area2D)Missile.Instance();
+        var missile = Missile.Instance() as Area2D;
         missile.Position = Position;
         GetParent().AddChild(missile);
     }

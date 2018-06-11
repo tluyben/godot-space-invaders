@@ -6,27 +6,30 @@ public class Player : Area2D
 	private Vector2 screenSize;
 
 	[Export]
-	public int Speed = 0;
+	public int Speed = 10;
 
     [Export]
     public PackedScene Missile;
 
     public override void _Ready()
     {
+		Missile = ResourceLoader.Load("res://Missile.tscn") as PackedScene;
+				
 		screenSize = GetViewport().GetSize();
     }
 
     public override void _Process(float delta)
     {
         if (Input.IsActionPressed("ui_right")) {
-            Position += new Vector2(Speed * delta, 0);
+            Position += new Vector2(Speed, 0);
         }
         if (Input.IsActionPressed("ui_left")) {
-            Position -= new Vector2(Speed * delta, 0);
+			GD.Print("Hello from C# to Godot :)");
+            Position -= new Vector2(Speed, 0);
         }
 
         if (Input.IsActionJustPressed("action_fire")) {
-            var missile =  (Area2D) Missile.Instance();
+            var missile =  Missile.Instance() as Area2D;
             missile.Position = Position;
             GetParent().AddChild(missile);
         }
